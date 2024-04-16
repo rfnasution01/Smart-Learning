@@ -1,5 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 import {
+  ActivateAccountPage,
+  ChangePasswordPage,
   Homepage,
   LoginLayout,
   LoginPage,
@@ -32,6 +34,14 @@ export const router = createBrowserRouter([
           {
             path: 'registrasi',
             element: <RegistrasiPage />,
+          },
+          {
+            path: 'change-password',
+            element: <ChangePasswordPage />,
+          },
+          {
+            path: 'activate-account',
+            element: <ActivateAccountPage />,
           },
         ],
       },
