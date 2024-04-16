@@ -2,30 +2,39 @@ import { Form } from '@/components/Form'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
-import { Eye, EyeOff, Lock, Save } from 'lucide-react'
+import { Send, UserCircle } from 'lucide-react'
 import { Button } from '@/components/Button'
 import { useEffect, useState } from 'react'
 import { FormLabelInput } from '@/components/ui/input'
 import { useNavigate } from 'react-router-dom'
 import { Bounce, ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { changePasswordSchema } from '@/libs/const/schema/changePasswordSchema'
-import { useCreateNewPasswordMutation } from '@/store/slices/loginAPI'
+import { activateAccountSchema } from '@/libs/const/schema/activateAccountSchema'
+import { useGetActivateQuery } from '@/store/slices/loginAPI'
 
-export default function ChangePasswordPage() {
+export default function ActivateAccountPage() {
   const navigate = useNavigate()
-  const [isShow, setIsShow] = useState<boolean>(false)
-  const [createNewPassword, { isSuccess, isError, error }] =
-    useCreateNewPasswordMutation()
+  const [token, setToken] = useState<string>('')
+  const [nisn, setNisn] = useState<string>('')
+  const {
+    data: getActivate,
+    isSuccess,
+    isError,
+    error,
+  } = useGetActivateQuery(
+    { token, nisn },
+    { skip: token === '' || nisn === '' },
+  )
 
-  const form = useForm<zod.infer<typeof changePasswordSchema>>({
-    resolver: zodResolver(changePasswordSchema),
+  const form = useForm<zod.infer<typeof activateAccountSchema>>({
+    resolver: zodResolver(activateAccountSchema),
     defaultValues: {},
   })
 
-  async function handleFormLogin(values) {
+  async function handleSubmit(values) {
     try {
-      await createNewPassword({ data: values })
+      setToken(values.token)
+      setNisn(values?.nisn)
     } catch (error) {
       console.log(error)
     }
@@ -33,7 +42,7 @@ export default function ChangePasswordPage() {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success(`Login berhasil!`, {
+      toast.success(`Akun sudah diverifikasi!`, {
         position: 'top-center',
         autoClose: 5000,
         hideProgressBar: false,
@@ -44,9 +53,6 @@ export default function ChangePasswordPage() {
         theme: 'light',
         transition: Bounce,
       })
-      setTimeout(() => {
-        navigate('/')
-      }, 3000)
     }
   }, [isSuccess])
 
@@ -72,45 +78,39 @@ export default function ChangePasswordPage() {
     }
   }, [isError, error])
 
+  console.log({ getActivate })
+
   return (
     <div className="flex h-full flex-col items-center justify-center gap-y-32 px-[18rem] phones:px-[4rem]">
       <div className="flex w-full flex-col items-center rounded-2xl bg-white p-32 shadow-md">
-        <span className="mb-64 font-roboto text-[3rem]">Change Password</span>
+        <span className="mb-64 font-roboto text-[3rem]">Activate Account</span>
         <Form {...form}>
-          <form
-            className="w-full"
-            onSubmit={form.handleSubmit(handleFormLogin)}
-          >
+          <form className="w-full" onSubmit={form.handleSubmit(handleSubmit)}>
             <div className="flex flex-col gap-32 text-black">
               <div className="flex flex-col gap-y-32">
                 <FormLabelInput
                   form={form}
-                  label="Old Password"
-                  placeholder="Write your old password"
-                  name="old_password"
-                  prefix={<Lock size={16} />}
-                  suffix={isShow ? <Eye size={16} /> : <EyeOff size={16} />}
-                  handlerClick={() => setIsShow(!isShow)}
-                  type={!isShow ? 'password' : 'text'}
+                  label="NISN"
+                  placeholder="Write your nisn"
+                  name="nisn"
+                  prefix={<UserCircle size={16} />}
+                  type="text"
                   className="col-span-6 phones:col-span-12"
                 />
-
                 <FormLabelInput
                   form={form}
-                  label="New Password"
-                  placeholder="Write your new password"
-                  name="new_password"
-                  prefix={<Lock size={16} />}
-                  suffix={isShow ? <Eye size={16} /> : <EyeOff size={16} />}
-                  handlerClick={() => setIsShow(!isShow)}
-                  type={!isShow ? 'password' : 'text'}
+                  label="Token"
+                  placeholder="Write your token"
+                  name="token"
+                  prefix={<UserCircle size={16} />}
+                  type="text"
                   className="col-span-6 phones:col-span-12"
                 />
               </div>
 
-              <Button variant="solid-primary" type="submit" classes="py-12">
-                <Save size={12} />
-                Simpan
+              <Button variant="solid-primary" type="submit">
+                <Send size={12} />
+                Verifikasi
               </Button>
 
               <h5 className="mt-32 text-center">

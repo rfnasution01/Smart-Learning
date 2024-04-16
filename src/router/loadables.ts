@@ -16,3 +16,6 @@ export const RegistrasiPage = loadable(() => import('@/features/registrasi'))
 export const ChangePasswordPage = loadable(
   () => import('@/features/changePassword'),
 )
+export const ActivateAccountPage = loadable(
+  () => import('@/features/activateAccount'),
+)

@@ -1,4 +1,8 @@
-import { ChangePasswordType, LoginType } from '@/libs/interface'
+import {
+  ActivateAccountType,
+  ChangePasswordType,
+  LoginType,
+} from '@/libs/interface'
 import { api } from '../api'
 
 export const LoginEndpoints = api.injectEndpoints({
@@ -17,8 +21,20 @@ export const LoginEndpoints = api.injectEndpoints({
         body: data,
       }),
     }),
+    getActivate: builder.query<void, ActivateAccountType>({
+      query: ({ token, nisn }) => ({
+        url: 'verifikasi_email',
+        params: {
+          token,
+          nisn,
+        },
+      }),
+    }),
   }),
 })
 
-export const { useCreateLoginMutation, useCreateNewPasswordMutation } =
-  LoginEndpoints
+export const {
+  useCreateLoginMutation,
+  useCreateNewPasswordMutation,
+  useGetActivateQuery,
+} = LoginEndpoints

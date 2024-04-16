@@ -57,7 +57,7 @@ export default function LoginPage() {
         }
       }
 
-      toast.error(`${errorMsg.data.message ?? 'Terjadi Kesalahan'}`, {
+      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
         position: 'top-center',
         autoClose: 5000,
         hideProgressBar: false,
@@ -153,17 +153,27 @@ export default function LoginPage() {
                 </Button>
               </div>
 
-              <h5 className="mt-32 text-center">
-                Don't have an account?{' '}
-                <span
-                  className="text-primary-shade-500 hover:cursor-pointer"
+              <div className="mt-32 flex flex-col gap-y-12">
+                <h5
+                  className="text-center hover:cursor-pointer hover:text-primary-shade-500"
                   onClick={() => {
-                    navigate('registrasi')
+                    navigate('activate-account')
                   }}
                 >
-                  Registrasi
-                </span>
-              </h5>
+                  Activate Account
+                </h5>
+                <h5 className="text-center">
+                  Don't have an account?{' '}
+                  <span
+                    className="text-primary-shade-500 hover:cursor-pointer"
+                    onClick={() => {
+                      navigate('registrasi')
+                    }}
+                  >
+                    Registrasi
+                  </span>
+                </h5>
+              </div>
             </div>
           </form>
           <ToastContainer />

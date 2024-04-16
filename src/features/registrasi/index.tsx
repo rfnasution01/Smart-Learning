@@ -2,7 +2,7 @@ import { Form } from '@/components/Form'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
-import { Eye, EyeOff, Lock, Mail, Send, UserCircle } from 'lucide-react'
+import { Eye, EyeOff, Lock, Mail, Save, UserCircle } from 'lucide-react'
 import { FormListJenisKelamin } from '@/components/ui/form/formListJenisKelamin'
 import { Button } from '@/components/Button'
 import { useEffect, useState } from 'react'
@@ -63,7 +63,7 @@ export default function RegistrasiPage() {
         }
       }
 
-      toast.error(`${errorMsg.data.message ?? 'Terjadi Kesalahan'}`, {
+      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
         position: 'top-center',
         autoClose: 5000,
         hideProgressBar: false,
@@ -172,7 +172,7 @@ export default function RegistrasiPage() {
 
               <div className="flex flex-col gap-y-12">
                 <Button variant="solid-primary" type="submit" classes="py-12">
-                  <Send size={12} />
+                  <Save size={12} />
                   Simpan
                 </Button>
                 <span className="text-center">or sign up with:</span>
