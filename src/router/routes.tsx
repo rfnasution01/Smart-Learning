@@ -1,5 +1,12 @@
 import { createBrowserRouter } from 'react-router-dom'
-import { Homepage, LoginLayout, NotFound, RootLayout } from './loadables'
+import {
+  Homepage,
+  LoginLayout,
+  LoginPage,
+  NotFound,
+  RegistrasiPage,
+  RootLayout,
+} from './loadables'
 
 export const router = createBrowserRouter([
   {
@@ -13,6 +20,20 @@ export const router = createBrowserRouter([
       {
         path: 'login',
         element: <LoginLayout />,
+        children: [
+          {
+            path: '',
+            element: <LoginPage />,
+          },
+          {
+            path: 'login',
+            element: <LoginPage />,
+          },
+          {
+            path: 'registrasi',
+            element: <RegistrasiPage />,
+          },
+        ],
       },
     ],
   },
