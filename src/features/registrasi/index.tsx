@@ -35,17 +35,20 @@ export default function RegistrasiPage() {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success(`Registrasi berhasil. Silahkan login!`, {
-        position: 'top-center',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      })
+      toast.success(
+        `Password berhasil diubah. Silahkan cek email untuk verifikasi login!`,
+        {
+          position: 'top-center',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        },
+      )
       setTimeout(() => {
         navigate('/login')
       }, 3000)
@@ -75,7 +78,7 @@ export default function RegistrasiPage() {
   }, [isError, error])
 
   return (
-    <div className="flex flex-col items-center justify-center gap-y-32 bg-white">
+    <div className="flex h-full flex-col items-center justify-center gap-y-32 bg-white phones:h-auto">
       <div className="flex w-full flex-col items-center p-32">
         <span className="mb-64 font-roboto text-[3rem]">Create an Account</span>
         <Form {...form}>

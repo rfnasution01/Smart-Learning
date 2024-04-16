@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 import {
+  ChangePasswordPage,
   Homepage,
   LoginLayout,
   LoginPage,
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
           {
             path: 'registrasi',
             element: <RegistrasiPage />,
+          },
+          {
+            path: 'change-password',
+            element: <ChangePasswordPage />,
           },
         ],
       },

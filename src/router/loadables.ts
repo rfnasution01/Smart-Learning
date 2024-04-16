@@ -13,3 +13,6 @@ export const ComingSoon = loadable(() => import('@/pages/comingSoon'))
 
 export const LoginPage = loadable(() => import('@/features/login'))
 export const RegistrasiPage = loadable(() => import('@/features/registrasi'))
+export const ChangePasswordPage = loadable(
+  () => import('@/features/changePassword'),
+)

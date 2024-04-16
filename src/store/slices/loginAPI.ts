@@ -1,4 +1,4 @@
-import { LoginType } from '@/libs/interface'
+import { ChangePasswordType, LoginType } from '@/libs/interface'
 import { api } from '../api'
 
 export const LoginEndpoints = api.injectEndpoints({
@@ -10,7 +10,15 @@ export const LoginEndpoints = api.injectEndpoints({
         body: data,
       }),
     }),
+    createNewPassword: builder.mutation<void, { data: ChangePasswordType }>({
+      query: ({ data }) => ({
+        url: `change_password`,
+        method: 'POST',
+        body: data,
+      }),
+    }),
   }),
 })
 
-export const { useCreateLoginMutation } = LoginEndpoints
+export const { useCreateLoginMutation, useCreateNewPasswordMutation } =
+  LoginEndpoints

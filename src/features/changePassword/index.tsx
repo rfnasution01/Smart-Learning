@@ -2,29 +2,30 @@ import { Form } from '@/components/Form'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
-import { Eye, EyeOff, Lock, Mail, Send, UserCircle } from 'lucide-react'
+import { Eye, EyeOff, Lock, Save } from 'lucide-react'
 import { Button } from '@/components/Button'
 import { useEffect, useState } from 'react'
 import { FormLabelInput } from '@/components/ui/input'
 import { useNavigate } from 'react-router-dom'
 import { Bounce, ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { loginSchema } from '@/libs/const/schema/loginSchema'
-import { useCreateLoginMutation } from '@/store/slices/loginAPI'
+import { changePasswordSchema } from '@/libs/const/schema/changePasswordSchema'
+import { useCreateNewPasswordMutation } from '@/store/slices/loginAPI'
 
-export default function LoginPage() {
+export default function ChangePasswordPage() {
   const navigate = useNavigate()
   const [isShow, setIsShow] = useState<boolean>(false)
-  const [createLogin, { isSuccess, isError, error }] = useCreateLoginMutation()
+  const [createNewPassword, { isSuccess, isError, error }] =
+    useCreateNewPasswordMutation()
 
-  const form = useForm<zod.infer<typeof loginSchema>>({
-    resolver: zodResolver(loginSchema),
+  const form = useForm<zod.infer<typeof changePasswordSchema>>({
+    resolver: zodResolver(changePasswordSchema),
     defaultValues: {},
   })
 
   async function handleFormLogin(values) {
     try {
-      await createLogin({ data: values })
+      await createNewPassword({ data: values })
     } catch (error) {
       console.log(error)
     }
@@ -74,29 +75,19 @@ export default function LoginPage() {
   return (
     <div className="flex h-full flex-col items-center justify-center gap-y-32 px-[18rem] phones:px-[4rem]">
       <div className="flex w-full flex-col items-center rounded-2xl bg-white p-32 shadow-md">
-        <span className="mb-64 font-roboto text-[3rem]">Login to continue</span>
+        <span className="mb-64 font-roboto text-[3rem]">Change Password</span>
         <Form {...form}>
           <form
             className="w-full"
             onSubmit={form.handleSubmit(handleFormLogin)}
           >
             <div className="flex flex-col gap-32 text-black">
-              <div className="flex flex-col gap-y-12">
+              <div className="flex flex-col gap-y-32">
                 <FormLabelInput
                   form={form}
-                  label="NISN"
-                  placeholder="Write your nisn"
-                  name="username"
-                  prefix={<UserCircle size={16} />}
-                  type="text"
-                  className="col-span-6 mb-32 phones:col-span-12"
-                />
-
-                <FormLabelInput
-                  form={form}
-                  label="Password"
-                  placeholder="Write your password"
-                  name="password"
+                  label="Old Password"
+                  placeholder="Write your old password"
+                  name="old_password"
                   prefix={<Lock size={16} />}
                   suffix={isShow ? <Eye size={16} /> : <EyeOff size={16} />}
                   handlerClick={() => setIsShow(!isShow)}
@@ -104,64 +95,33 @@ export default function LoginPage() {
                   className="col-span-6 phones:col-span-12"
                 />
 
-                <div className="flex items-center justify-between">
-                  <span
-                    className="hover:cursor-pointer hover:text-primary-shade-500"
-                    onClick={() => {
-                      navigate('change-password')
-                    }}
-                  >
-                    Change Password
-                  </span>
-                  <span
-                    className="hover:cursor-pointer hover:text-primary-shade-500"
-                    onClick={() => {
-                      navigate('')
-                    }}
-                  >
-                    Forgot Password?
-                  </span>
-                </div>
+                <FormLabelInput
+                  form={form}
+                  label="New Password"
+                  placeholder="Write your new password"
+                  name="new_password"
+                  prefix={<Lock size={16} />}
+                  suffix={isShow ? <Eye size={16} /> : <EyeOff size={16} />}
+                  handlerClick={() => setIsShow(!isShow)}
+                  type={!isShow ? 'password' : 'text'}
+                  className="col-span-6 phones:col-span-12"
+                />
               </div>
 
-              <div className="flex flex-col gap-y-12">
-                <Button variant="solid-primary" type="submit" classes="py-12">
-                  <Send size={12} />
-                  Login
-                </Button>
-                <span className="text-center">or login with:</span>
-              </div>
-
-              <div className="flex flex-col gap-y-12">
-                <Button
-                  variant="outlined-primary"
-                  type="button"
-                  classes="py-12"
-                  disabled
-                >
-                  <img src="/icon/Google.svg" alt="Icon Google" />
-                  Login with Google
-                </Button>
-                <Button
-                  variant="outlined-primary"
-                  type="button"
-                  classes="py-12"
-                  disabled
-                >
-                  <Mail size={16} />
-                  Login with Email
-                </Button>
-              </div>
+              <Button variant="solid-primary" type="submit" classes="py-12">
+                <Save size={12} />
+                Simpan
+              </Button>
 
               <h5 className="mt-32 text-center">
-                Don't have an account?{' '}
+                Have an account?{' '}
                 <span
                   className="text-primary-shade-500 hover:cursor-pointer"
                   onClick={() => {
-                    navigate('registrasi')
+                    navigate('/login')
                   }}
                 >
-                  Registrasi
+                  Login
                 </span>
               </h5>
             </div>
