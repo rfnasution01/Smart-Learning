@@ -1,4 +1,4 @@
-import { IdentitasDataType } from '@/libs/interface/identitasType'
+import { IdentitasDataType } from '@/libs/interface'
 import { Res, api } from '../api'
 
 export const identitasEndpoints = api.injectEndpoints({
