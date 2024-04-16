@@ -27,10 +27,9 @@ export default function RegistrasiPage() {
 
   async function handleFormSignup(values) {
     try {
-      console.log(values)
       await createAccount({ data: values })
     } catch (error) {
-      console.log(error, 'test')
+      console.log(error)
     }
   }
 
@@ -76,9 +75,9 @@ export default function RegistrasiPage() {
   }, [isError, error])
 
   return (
-    <div className="flex flex-col items-center justify-center gap-y-32">
+    <div className="flex flex-col items-center justify-center gap-y-32 bg-white">
       <div className="flex w-full flex-col items-center p-32">
-        <span className="mb-64 font-roboto text-[3rem]">Create Account</span>
+        <span className="mb-64 font-roboto text-[3rem]">Create an Account</span>
         <Form {...form}>
           <form
             className="w-full"

@@ -41,11 +41,11 @@ export const registerSchema = zod.object({
     .refine(
       (value) => {
         // Validasi bahwa password harus terdiri dari kombinasi huruf dan angka dan minimal 8 karakter
-        return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value)
+        return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(value)
       },
       {
         message:
-          'Password harus terdiri dari kombinasi huruf dan angka, minimal 8 karakter',
+          'Password harus terdiri dari kombinasi huruf dan angka, minimal 6 karakter',
       },
     ),
 })
