@@ -13,12 +13,23 @@ import { useNavigate } from 'react-router-dom'
 import { useCreateAccountMutation } from '@/store/slices/accountAPI'
 import { Bounce, ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { useGetNISNQuery } from '@/store/slices/loginAPI'
 
 export default function RegistrasiPage() {
   const navigate = useNavigate()
   const [isShow, setIsShow] = useState<boolean>(false)
+  const [nisn, setNisn] = useState<string>('')
   const [createAccount, { isSuccess, isError, error }] =
     useCreateAccountMutation()
+  const {
+    data: getNISN,
+    isSuccess: isSuccessNISN,
+    isError: isErrorNISN,
+    error: errorNISN,
+  } = useGetNISNQuery(
+    { nisn: nisn },
+    { skip: nisn === '' || nisn === undefined },
+  )
 
   const form = useForm<zod.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
@@ -28,6 +39,15 @@ export default function RegistrasiPage() {
   async function handleFormSignup(values) {
     try {
       await createAccount({ data: values })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async function checkNISN() {
+    try {
+      const nisn = form.watch('nisn')
+      setNisn(nisn)
     } catch (error) {
       console.log(error)
     }
@@ -50,7 +70,7 @@ export default function RegistrasiPage() {
         },
       )
       setTimeout(() => {
-        navigate('/login')
+        navigate('/login/activate-account')
       }, 3000)
     }
   }, [isSuccess])
@@ -77,10 +97,62 @@ export default function RegistrasiPage() {
     }
   }, [isError, error])
 
+  useEffect(() => {
+    if (isSuccessNISN) {
+      toast.success(`NISN valid`, {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+  }, [isSuccessNISN])
+
+  useEffect(() => {
+    if (isErrorNISN) {
+      const errorMsg = errorNISN as {
+        data?: {
+          message?: string
+        }
+      }
+
+      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+  }, [isErrorNISN, errorNISN])
+
+  useEffect(() => {
+    if (getNISN?.data) {
+      form.setValue('nisn', getNISN?.data?.nisn)
+      form.setValue('nama', getNISN?.data?.nama)
+      form.setValue('jk', getNISN?.data?.jk)
+      form.setValue('agama', getNISN?.data?.agama)
+      form.setValue('tanggal_lahir', getNISN?.data?.tanggal_lahir)
+      form.setValue('email', getNISN?.data?.email)
+      form.setValue('wa', getNISN?.data?.wa)
+    }
+  }, [getNISN])
+
   return (
     <div className="flex h-full flex-col items-center justify-center gap-y-32 bg-white phones:h-auto">
       <div className="flex w-full flex-col items-center p-32">
-        <span className="mb-64 font-roboto text-[3rem]">Create an Account</span>
+        <span className="mb-64 font-roboto text-[3rem]">
+          Create an Account {nisn}
+        </span>
         <Form {...form}>
           <form
             className="w-full"
@@ -95,6 +167,14 @@ export default function RegistrasiPage() {
                     placeholder="Write your nisn"
                     name="nisn"
                     prefix={<UserCircle size={16} />}
+                    suffix={
+                      <span
+                        className="hover:cursor-pointer hover:text-primary-shade-500"
+                        onClick={checkNISN}
+                      >
+                        Check
+                      </span>
+                    }
                     type="text"
                     className="col-span-6 phones:col-span-12"
                   />

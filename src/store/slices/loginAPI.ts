@@ -1,9 +1,10 @@
 import {
   ActivateAccountType,
   ChangePasswordType,
+  CheckNISNType,
   LoginType,
 } from '@/libs/interface'
-import { api } from '../api'
+import { Res, api } from '../api'
 
 export const LoginEndpoints = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -30,6 +31,14 @@ export const LoginEndpoints = api.injectEndpoints({
         },
       }),
     }),
+    getNISN: builder.query<Res<CheckNISNType>, { nisn: string }>({
+      query: ({ nisn }) => ({
+        url: 'nisn',
+        params: {
+          nisn,
+        },
+      }),
+    }),
   }),
 })
 
@@ -37,4 +46,5 @@ export const {
   useCreateLoginMutation,
   useCreateNewPasswordMutation,
   useGetActivateQuery,
+  useGetNISNQuery,
 } = LoginEndpoints
