@@ -41,8 +41,8 @@ const variant = {
   ],
   'outlined-primary': [
     'bg-transparent',
-    'border-white',
-    'text-white',
+    'border-primary',
+    'text-primary',
     'hover:bg-slate-300',
     'hover:border-button-outline-hover-border',
     'hover:text-black',

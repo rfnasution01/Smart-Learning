@@ -177,11 +177,21 @@ export default function RegistrasiPage() {
               </div>
 
               <div className="flex flex-col gap-y-12">
-                <Button variant="solid-primary" type="submit" classes="py-12">
+                <Button
+                  variant="outlined-primary"
+                  type="button"
+                  classes="py-12"
+                  disabled
+                >
                   <img src="/icon/Google.svg" alt="Icon Google" />
                   Sign Up with Google
                 </Button>
-                <Button variant="solid-primary" type="submit" classes="py-12">
+                <Button
+                  variant="outlined-primary"
+                  type="button"
+                  classes="py-12"
+                  disabled
+                >
                   <Mail size={16} />
                   Sign Up with Email
                 </Button>
