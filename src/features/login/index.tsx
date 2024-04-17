@@ -2,7 +2,15 @@ import { Form } from '@/components/Form'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
-import { Eye, EyeOff, Lock, Mail, Send, UserCircle } from 'lucide-react'
+import {
+  Eye,
+  EyeOff,
+  Loader2,
+  Lock,
+  Mail,
+  Send,
+  UserCircle,
+} from 'lucide-react'
 import { Button } from '@/components/Button'
 import { useEffect, useState } from 'react'
 import { FormLabelInput } from '@/components/ui/input'
@@ -11,11 +19,14 @@ import { Bounce, ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { loginSchema } from '@/libs/const/schema/loginSchema'
 import { useCreateLoginMutation } from '@/store/slices/loginAPI'
+import clsx from 'clsx'
 
 export default function LoginPage() {
   const navigate = useNavigate()
   const [isShow, setIsShow] = useState<boolean>(false)
-  const [createLogin, { isSuccess, isError, error }] = useCreateLoginMutation()
+  const [createLogin, { isSuccess, isError, error, isLoading }] =
+    useCreateLoginMutation()
+  const disabled = isLoading
 
   const form = useForm<zod.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -90,6 +101,7 @@ export default function LoginPage() {
                   prefix={<UserCircle size={16} />}
                   type="text"
                   className="col-span-6 mb-32 phones:col-span-12"
+                  isDisabled={disabled}
                 />
 
                 <FormLabelInput
@@ -102,6 +114,7 @@ export default function LoginPage() {
                   handlerClick={() => setIsShow(!isShow)}
                   type={!isShow ? 'password' : 'text'}
                   className="col-span-6 phones:col-span-12"
+                  isDisabled={disabled}
                 />
 
                 <div className="flex items-center justify-between">
@@ -125,8 +138,19 @@ export default function LoginPage() {
               </div>
 
               <div className="flex flex-col gap-y-12">
-                <Button variant="solid-primary" type="submit" classes="py-12">
-                  <Send size={12} />
+                <Button
+                  variant="solid-primary"
+                  type="submit"
+                  classes="py-12"
+                  disabled={disabled}
+                >
+                  <span
+                    className={clsx('', {
+                      'animate-spin duration-100': disabled,
+                    })}
+                  >
+                    {disabled ? <Loader2 size={12} /> : <Send size={12} />}
+                  </span>
                   Login
                 </Button>
                 <span className="text-center">or login with:</span>

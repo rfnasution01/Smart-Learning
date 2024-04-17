@@ -2,7 +2,7 @@ import { Form } from '@/components/Form'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
-import { Send, UserCircle } from 'lucide-react'
+import { Loader2, Send, UserCircle } from 'lucide-react'
 import { Button } from '@/components/Button'
 import { useEffect, useState } from 'react'
 import { FormLabelInput } from '@/components/ui/input'
@@ -11,6 +11,7 @@ import { Bounce, ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { activateAccountSchema } from '@/libs/const/schema/activateAccountSchema'
 import { useGetActivateQuery } from '@/store/slices/loginAPI'
+import clsx from 'clsx'
 
 export default function ActivateAccountPage() {
   const navigate = useNavigate()
@@ -21,10 +22,13 @@ export default function ActivateAccountPage() {
     isSuccess,
     isError,
     error,
+    isFetching,
+    isLoading,
   } = useGetActivateQuery(
     { token, nisn },
     { skip: token === '' || nisn === '' },
   )
+  const disabled = isFetching || isLoading
 
   const form = useForm<zod.infer<typeof activateAccountSchema>>({
     resolver: zodResolver(activateAccountSchema),
@@ -96,6 +100,7 @@ export default function ActivateAccountPage() {
                   prefix={<UserCircle size={16} />}
                   type="text"
                   className="col-span-6 phones:col-span-12"
+                  isDisabled={disabled}
                 />
                 <FormLabelInput
                   form={form}
@@ -105,11 +110,18 @@ export default function ActivateAccountPage() {
                   prefix={<UserCircle size={16} />}
                   type="text"
                   className="col-span-6 phones:col-span-12"
+                  isDisabled={disabled}
                 />
               </div>
 
-              <Button variant="solid-primary" type="submit">
-                <Send size={12} />
+              <Button variant="solid-primary" type="submit" disabled={disabled}>
+                <span
+                  className={clsx('', {
+                    'animate-spin duration-100': disabled,
+                  })}
+                >
+                  {disabled ? <Loader2 size={12} /> : <Send size={12} />}
+                </span>
                 Verifikasi
               </Button>
 
