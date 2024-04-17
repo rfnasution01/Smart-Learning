@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import { api } from './api'
-import stateModeSlices from './reducer/stateMode.ts'
+import stateIdentitasSlices from './reducer/stateIdentitas.ts'
 
 export const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer,
-    stateMode: stateModeSlices,
+    stateIdentitas: stateIdentitasSlices,
   },
   devTools: true,
   middleware: (getDefaultMiddleware) =>
