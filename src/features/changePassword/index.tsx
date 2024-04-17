@@ -35,7 +35,7 @@ export default function ChangePasswordPage() {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success(`Login berhasil!`, {
+      toast.success(`Password berhasil diganti. Silahkan login kembali !`, {
         position: 'top-center',
         autoClose: 5000,
         hideProgressBar: false,
@@ -47,7 +47,7 @@ export default function ChangePasswordPage() {
         transition: Bounce,
       })
       setTimeout(() => {
-        navigate('/')
+        navigate('/login')
       }, 3000)
     }
   }, [isSuccess])

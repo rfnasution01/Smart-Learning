@@ -3,12 +3,13 @@ import {
   ChangePasswordType,
   CheckNISNType,
   LoginType,
+  ResponseLoginType,
 } from '@/libs/interface'
 import { Res, api } from '../api'
 
 export const LoginEndpoints = api.injectEndpoints({
   endpoints: (builder) => ({
-    createLogin: builder.mutation<void, { data: LoginType }>({
+    createLogin: builder.mutation<Res<ResponseLoginType>, { data: LoginType }>({
       query: ({ data }) => ({
         url: `login`,
         method: 'POST',
