@@ -82,7 +82,7 @@ export const router = createBrowserRouter([
             const domain =
               environtment === 'development' ? 'localhost' : domainName
 
-            window.location.href = `${import.meta.env.VITE_BASE_LOGIN}/login`
+            window.location.href = `/login`
             Cookies.remove('token', { domain, path: '/' })
             return null
           }
