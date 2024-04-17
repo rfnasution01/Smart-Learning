@@ -184,19 +184,19 @@ export default function RegistrasiPage() {
                     prefix={<UserCircle size={16} />}
                     suffix={
                       <div
-                        className="flex items-center gap-x-4 rounded-lg bg-primary-shade-200 p-8 text-white hover:cursor-pointer hover:text-background"
+                        className="flex items-center gap-x-4 rounded-lg bg-blue-500 p-8 text-white hover:cursor-pointer hover:text-background"
                         onClick={checkNISN}
                       >
-                        <span>Check</span>
+                        <span className="text-[1.4rem]">Check</span>
                         <span
                           className={clsx('', {
                             'animate-spin duration-100': disabled,
                           })}
                         >
                           {disabled ? (
-                            <Loader2 size={16} />
+                            <Loader2 size={12} />
                           ) : (
-                            <Search size={16} />
+                            <Search size={12} />
                           )}
                         </span>
                       </div>
