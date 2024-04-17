@@ -16,6 +16,7 @@ import {
   RegistrasiPage,
   RootLayout,
 } from './loadables'
+import Cookies from 'js-cookie'
 
 export const router = createBrowserRouter([
   {
@@ -67,6 +68,27 @@ export const router = createBrowserRouter([
       {
         path: 'cbt',
         element: <CBTPage />,
+        loader: async () => {
+          const jwtPayload = Cookies.get('token')
+          const environtment = `${import.meta.env.VITE_BASE_ENVIRONTMENT}`
+
+          if (!jwtPayload) {
+            const url = `${import.meta.env.VITE_BASE_URL}`
+
+            const hostname = new URL(url).hostname
+            const domainParts = hostname.split('.')
+            const domainName = '.' + domainParts.slice(-3).join('.')
+
+            const domain =
+              environtment === 'development' ? 'localhost' : domainName
+
+            window.location.href = `${import.meta.env.VITE_BASE_LOGIN}/login`
+            Cookies.remove('token', { domain, path: '/' })
+            return null
+          }
+
+          return null
+        },
         children: [
           {
             path: '',
