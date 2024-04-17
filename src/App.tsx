@@ -1,8 +1,12 @@
 import { Outlet } from 'react-router-dom'
+import { usePathname } from './libs/hooks/usePathname'
+import { HeaderLayout } from './features/layout/headerlayout'
 
 export default function RootLayout() {
+  const { firstPathname } = usePathname()
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="scrollbar flex max-h-screen min-h-screen flex-col overflow-auto bg-background">
+      {!firstPathname.includes('login') && <HeaderLayout />}
       <Outlet />
     </div>
   )
