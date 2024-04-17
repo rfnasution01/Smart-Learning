@@ -52,7 +52,7 @@ export function HeaderLayout() {
   console.log(search)
 
   return (
-    <div className="flex h-[7.6rem] flex-row items-center  justify-between gap-x-96 bg-primary-shade-500 px-32 text-white">
+    <div className="flex min-h-[7.6rem] flex-row items-center  justify-between gap-x-96 bg-primary-shade-500 px-32 text-white">
       <Link
         to="/"
         className="flex items-center gap-x-8 text-[3.2rem] text-primary-shade-200"

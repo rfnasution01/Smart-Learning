@@ -1,5 +1,7 @@
 import { BeritaMapping } from '@/features/berita'
+import { Footer } from '@/features/footer'
 import { PengumumanMapping } from '@/features/pengumuman'
+import { Services } from '@/features/services'
 
 export default function Homepage() {
   return (
@@ -12,6 +14,8 @@ export default function Homepage() {
           <PengumumanMapping />
         </div>
       </div>
+      <Services />
+      <Footer />
     </div>
   )
 }
