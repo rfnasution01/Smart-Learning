@@ -1,4 +1,3 @@
-import { Badge } from '@/components/Badge'
 import { CardTitle } from '@/components/CardTitle'
 import { Pagination } from '@/components/Pagination'
 import { Input } from '@/components/ui/input'
@@ -6,6 +5,7 @@ import TimeSinceUploaded from '@/libs/helpers/timeUploaded'
 import { useSearch } from '@/libs/hooks/useSearch'
 import { BeritaType } from '@/libs/interface'
 import { useGetBeritaQuery } from '@/store/slices/beritaAPI'
+import clsx from 'clsx'
 import { debounce } from 'lodash'
 import { Search } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -71,9 +71,21 @@ export function BeritaMapping() {
                   className="h-[30vh] w-full rounded-md"
                 />
                 <div className="flex flex-col gap-y-16 p-16">
-                  <Badge variant="general">
-                    <span>{item?.kategori}</span>
-                  </Badge>
+                  <div
+                    className={clsx(
+                      'flex items-center gap-x-8 border-l-4 px-8',
+                      {
+                        'border-red-500': idx === 0,
+                        'border-blue-500': idx === 1,
+                        'border-green-500': idx === 2,
+                      },
+                    )}
+                  >
+                    {item?.kategori}
+                    <span className="font-light italic">
+                      <TimeSinceUploaded uploadTime={item?.tanggal} />
+                    </span>
+                  </div>
                   <div className="flex flex-col gap-y-8">
                     <span className="text-[2rem] font-bold">{item?.judul}</span>
                     <span
@@ -82,9 +94,6 @@ export function BeritaMapping() {
                     />
 
                     <div className="flex items-center justify-between">
-                      <span className="font-light italic">
-                        <TimeSinceUploaded uploadTime={item?.tanggal} />
-                      </span>
                       <Link
                         to={`berita?${item?.seo}`}
                         className="text-primary-shade-500 hover:cursor-pointer hover:text-primary-shade-700"
