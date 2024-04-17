@@ -5,7 +5,7 @@ export const AccountEndpoints = api.injectEndpoints({
   endpoints: (builder) => ({
     createAccount: builder.mutation<void, { data: AccountType }>({
       query: ({ data }) => ({
-        url: `register`,
+        url: `api/register`,
         method: 'POST',
         body: data,
       }),

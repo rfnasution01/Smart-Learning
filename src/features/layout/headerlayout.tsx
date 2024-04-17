@@ -9,6 +9,8 @@ import { Search } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { ButtonGroup } from './buttonGroup'
+import { HeaderNavigation } from './headerNavigation'
 
 export function HeaderLayout() {
   const [search, setSearch] = useState<string>('')
@@ -31,20 +33,28 @@ export function HeaderLayout() {
   console.log(search)
 
   return (
-    <div className="flex h-[7.6rem] flex-row items-center gap-x-96 bg-primary-shade-500 px-32 text-white phones:justify-between">
-      <Link to="/" className="text-[3.2rem] text-primary-shade-200">
+    <div className="flex h-[7.6rem] flex-row items-center  justify-between gap-x-96 bg-primary-shade-500 px-32 text-white">
+      <Link
+        to="/"
+        className="flex items-center gap-x-8 text-[3.2rem] text-primary-shade-200"
+      >
+        <img
+          src={identitas?.logo ?? '/img/logo.png'}
+          alt={identitas?.nama_aplikasi}
+          className="w-[4rem]"
+        />
         <span>{identitas?.nama_aplikasi}</span>
       </Link>
       <div className="block flex-1 phones:hidden">
         <div className="flex flex-row items-center gap-x-96 ">
-          {/* <HeaderNavigation /> */}
+          <HeaderNavigation />
           <Input
             className="flex-1 text-secondary-shade-100"
             placeholder="Search"
             prefix={<Search size={18} />}
             onChange={onSearch}
           />
-          {/* <ButtonGroup /> */}
+          <ButtonGroup />
         </div>
       </div>
       {/* <div className="hidden phones:block" onClick={() => setIsOpen(true)}>

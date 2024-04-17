@@ -5,7 +5,7 @@ export const identitasEndpoints = api.injectEndpoints({
   endpoints: (builder) => ({
     getIdentitas: builder.query<Res<IdentitasDataType>, void>({
       query: () => ({
-        url: 'identitas',
+        url: 'api/identitas',
       }),
     }),
   }),
