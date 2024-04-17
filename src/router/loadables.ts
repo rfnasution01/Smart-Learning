@@ -26,3 +26,4 @@ export const PostPage = loadable(() => import('@/pages/post'))
 
 export const CBTPage = loadable(() => import('@/pages/cbt'))
 export const HomeCBTPage = loadable(() => import('@/pages/cbt/home'))
+export const PercobaanPage = loadable(() => import('@/pages/cbt/percobaan'))

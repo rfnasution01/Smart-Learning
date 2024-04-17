@@ -11,6 +11,7 @@ import {
   LoginPage,
   NotFound,
   PengumuanPage,
+  PercobaanPage,
   PostPage,
   RegistrasiPage,
   RootLayout,
@@ -85,7 +86,7 @@ export const router = createBrowserRouter([
           },
           {
             path: 'percobaan',
-            element: <ComingSoon />,
+            element: <PercobaanPage />,
           },
           {
             path: 'ujian',
