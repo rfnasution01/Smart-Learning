@@ -13,6 +13,7 @@ export function FormLabelInput({
   type,
   handlerClick,
   className,
+  isDisabled,
 }: {
   form: UseFormReturn | undefined | any
   label?: string
@@ -23,6 +24,7 @@ export function FormLabelInput({
   type?: 'text' | 'number' | 'password' | 'date'
   handlerClick?: () => void
   className?: string
+  isDisabled?: boolean
 }) {
   return (
     <FormField
@@ -42,6 +44,7 @@ export function FormLabelInput({
             prefix={prefix}
             suffix={suffix}
             handlerClick={handlerClick}
+            disabled={isDisabled}
           />
           <FormMessage />
         </FormItem>

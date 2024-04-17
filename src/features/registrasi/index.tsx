@@ -2,7 +2,16 @@ import { Form } from '@/components/Form'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
-import { Eye, EyeOff, Lock, Mail, Save, UserCircle } from 'lucide-react'
+import {
+  Eye,
+  EyeOff,
+  Loader2,
+  Lock,
+  Mail,
+  Save,
+  Search,
+  UserCircle,
+} from 'lucide-react'
 import { FormListJenisKelamin } from '@/components/ui/form/formListJenisKelamin'
 import { Button } from '@/components/Button'
 import { useEffect, useState } from 'react'
@@ -14,22 +23,28 @@ import { useCreateAccountMutation } from '@/store/slices/accountAPI'
 import { Bounce, ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useGetNISNQuery } from '@/store/slices/loginAPI'
+import clsx from 'clsx'
 
 export default function RegistrasiPage() {
   const navigate = useNavigate()
   const [isShow, setIsShow] = useState<boolean>(false)
   const [nisn, setNisn] = useState<string>('')
-  const [createAccount, { isSuccess, isError, error }] =
-    useCreateAccountMutation()
+  const [
+    createAccount,
+    { isSuccess, isError, error, isLoading: createAccountLoading },
+  ] = useCreateAccountMutation()
   const {
     data: getNISN,
     isSuccess: isSuccessNISN,
     isError: isErrorNISN,
     error: errorNISN,
+    isFetching,
+    isLoading,
   } = useGetNISNQuery(
     { nisn: nisn },
     { skip: nisn === '' || nisn === undefined },
   )
+  const disabled = isFetching || isLoading
 
   const form = useForm<zod.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
@@ -71,7 +86,7 @@ export default function RegistrasiPage() {
       )
       setTimeout(() => {
         navigate('/login/activate-account')
-      }, 3000)
+      }, 5000)
     }
   }, [isSuccess])
 
@@ -168,15 +183,27 @@ export default function RegistrasiPage() {
                     name="nisn"
                     prefix={<UserCircle size={16} />}
                     suffix={
-                      <span
-                        className="hover:cursor-pointer hover:text-primary-shade-500"
+                      <div
+                        className="flex items-center gap-x-4 rounded-lg bg-primary-shade-200 p-8 text-white hover:cursor-pointer hover:text-background"
                         onClick={checkNISN}
                       >
-                        Check
-                      </span>
+                        <span>Check</span>
+                        <span
+                          className={clsx('', {
+                            'animate-spin duration-100': disabled,
+                          })}
+                        >
+                          {disabled ? (
+                            <Loader2 size={16} />
+                          ) : (
+                            <Search size={16} />
+                          )}
+                        </span>
+                      </div>
                     }
                     type="text"
                     className="col-span-6 phones:col-span-12"
+                    isDisabled={disabled}
                   />
 
                   <FormLabelInput
@@ -186,6 +213,7 @@ export default function RegistrasiPage() {
                     name="email"
                     prefix={<span>@</span>}
                     className="col-span-6 phones:col-span-12"
+                    isDisabled={disabled}
                   />
                 </div>
 
@@ -197,6 +225,7 @@ export default function RegistrasiPage() {
                     name="nama"
                     type="text"
                     className="col-span-6 phones:col-span-12"
+                    isDisabled={disabled}
                   />
 
                   <FormLabelInput
@@ -206,6 +235,7 @@ export default function RegistrasiPage() {
                     name="tanggal_lahir"
                     type="date"
                     className="col-span-6 phones:col-span-12"
+                    isDisabled={disabled}
                   />
                 </div>
 
@@ -216,6 +246,7 @@ export default function RegistrasiPage() {
                     headerLabel="Jenis Kelamin"
                     form={form}
                     className="col-span-6 phones:col-span-12"
+                    isDisabled={disabled}
                   />
 
                   <FormListAgama
@@ -224,6 +255,7 @@ export default function RegistrasiPage() {
                     headerLabel="Agama"
                     form={form}
                     className="col-span-6 phones:col-span-12"
+                    isDisabled={disabled}
                   />
                 </div>
                 <div className="grid grid-cols-12 gap-32">
@@ -234,6 +266,7 @@ export default function RegistrasiPage() {
                     name="wa"
                     type="text"
                     className="col-span-6 phones:col-span-12"
+                    isDisabled={disabled}
                   />
 
                   <FormLabelInput
@@ -246,13 +279,29 @@ export default function RegistrasiPage() {
                     handlerClick={() => setIsShow(!isShow)}
                     type={!isShow ? 'password' : 'text'}
                     className="col-span-6 phones:col-span-12"
+                    isDisabled={disabled}
                   />
                 </div>
               </div>
 
               <div className="flex flex-col gap-y-12">
-                <Button variant="solid-primary" type="submit" classes="py-12">
-                  <Save size={12} />
+                <Button
+                  variant="solid-primary"
+                  type="submit"
+                  classes="py-12"
+                  disabled={disabled || createAccountLoading}
+                >
+                  <span
+                    className={clsx('', {
+                      'animate-spin duration-100': createAccountLoading,
+                    })}
+                  >
+                    {createAccountLoading ? (
+                      <Loader2 size={12} />
+                    ) : (
+                      <Save size={12} />
+                    )}
+                  </span>
                   Simpan
                 </Button>
                 <span className="text-center">or sign up with:</span>
