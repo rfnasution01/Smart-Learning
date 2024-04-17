@@ -1,15 +1,13 @@
 import { CardTitle } from '@/components/CardTitle'
 import { Pagination } from '@/components/Pagination'
 import { Input } from '@/components/ui/input'
-import TimeSinceUploaded from '@/libs/helpers/timeUploaded'
 import { useSearch } from '@/libs/hooks/useSearch'
 import { BeritaType } from '@/libs/interface'
 import { useGetBeritaQuery } from '@/store/slices/beritaAPI'
-import clsx from 'clsx'
 import { debounce } from 'lodash'
 import { Search } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { BeritaList } from './beritaList'
 
 export function BeritaMapping() {
   const { currentPage } = useSearch()
@@ -30,7 +28,7 @@ export function BeritaMapping() {
     }
   }, [data?.data])
 
-  const totalPage = Math.ceil(berita?.length ?? 1 / pageSize)
+  const totalPage = Math.ceil(berita?.length ?? 0 / pageSize)
 
   const handleSearch = debounce((searchValue: string) => {
     setSearch(searchValue)
@@ -53,62 +51,14 @@ export function BeritaMapping() {
         />
       </div>
       <div className="grid grid-cols-12 gap-32 p-32">
-        {berita?.length === 0 ? (
-          <span className="col-span-12 text-[2rem]">
-            Berita tidak ditemukan.
-          </span>
-        ) : (
-          berita
-            ?.slice(currentPage * pageSize - pageSize, currentPage * pageSize)
-            .map((item, idx) => (
-              <div
-                className="col-span-4 transform shadow-md transition-transform duration-300 hover:scale-105 hover:cursor-pointer phones:col-span-12"
-                key={idx}
-              >
-                <img
-                  src={item?.photo?.gambar}
-                  alt={item?.photo?.keterangan}
-                  className="h-[30vh] w-full rounded-md"
-                />
-                <div className="flex flex-col gap-y-16 p-16">
-                  <div
-                    className={clsx(
-                      'flex items-center gap-x-8 border-l-4 px-8',
-                      {
-                        'border-red-500': idx === 0,
-                        'border-blue-500': idx === 1,
-                        'border-green-500': idx === 2,
-                      },
-                    )}
-                  >
-                    {item?.kategori}
-                    <span className="font-light italic">
-                      <TimeSinceUploaded uploadTime={item?.tanggal} />
-                    </span>
-                  </div>
-                  <div className="flex flex-col gap-y-8">
-                    <span className="text-[2rem] font-bold">{item?.judul}</span>
-                    <span
-                      className={`line-clamp-3 font-light`}
-                      dangerouslySetInnerHTML={{ __html: item?.isi }}
-                    />
-
-                    <div className="flex items-center justify-between">
-                      <Link
-                        to={`berita?${item?.seo}`}
-                        className="text-primary-shade-500 hover:cursor-pointer hover:text-primary-shade-700"
-                      >
-                        Baca Selengkapnya
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))
-        )}
+        <BeritaList
+          data={berita}
+          pageSize={pageSize}
+          currentPage={currentPage}
+        />
       </div>
       <Pagination
-        totalPage={totalPage}
+        totalPage={totalPage === 0 ? 1 : totalPage}
         classes="flex justify-end px-32 pb-32"
       />
     </div>

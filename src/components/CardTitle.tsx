@@ -16,3 +16,16 @@ export function CardTitle({
     </div>
   )
 }
+
+export function ListTitle({ title }: { title: string }) {
+  return (
+    <div className="font-roboto text-[3rem]">
+      <span>{title}</span>
+      <div className="mt-12 flex flex-row gap-x-4">
+        <hr className="w-[7rem] border-primary" />
+        <hr className="w-[0.5rem] border-primary" />
+        <hr className="w-[0.5rem] border-primary" />
+      </div>
+    </div>
+  )
+}

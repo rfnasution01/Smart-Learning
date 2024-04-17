@@ -13,7 +13,7 @@ export const pengumumanEndpoints = api.injectEndpoints({
         },
       }),
     }),
-    getPengumumanKategori: builder.query<Res<BeritaType>, BeritaParams>({
+    getPengumumanKategori: builder.query<Res<BeritaType[]>, BeritaParams>({
       query: ({ page_size, page_number, search, seo_kategori }) => ({
         url: 'pengumuman/kategori',
         params: {

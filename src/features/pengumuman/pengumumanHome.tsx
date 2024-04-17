@@ -99,7 +99,7 @@ export function PengumumanMapping() {
       </div>
 
       <Pagination
-        totalPage={totalPage}
+        totalPage={totalPage === 0 ? 1 : totalPage}
         classes="flex justify-end px-32 pb-32"
       />
     </div>
