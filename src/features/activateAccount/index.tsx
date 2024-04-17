@@ -87,7 +87,13 @@ export default function ActivateAccountPage() {
   return (
     <div className="flex h-full flex-col items-center justify-center gap-y-32 px-[18rem] phones:px-[4rem]">
       <div className="flex w-full flex-col items-center rounded-2xl bg-white p-32 shadow-md">
-        <span className="mb-64 font-roboto text-[3rem]">Activate Account</span>
+        <div className="mb-64 flex max-w-[70%] flex-col items-center justify-center gap-y-8">
+          <span className="font-roboto text-[3rem]">Activate Account</span>
+          <span className="text-center">
+            Masukkan nisn dan token yang telah dikirimkan ke email pada saat
+            pendaftaran akun
+          </span>
+        </div>
         <Form {...form}>
           <form className="w-full" onSubmit={form.handleSubmit(handleSubmit)}>
             <div className="flex flex-col gap-32 text-black">
