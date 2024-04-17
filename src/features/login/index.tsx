@@ -20,6 +20,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { loginSchema } from '@/libs/const/schema/loginSchema'
 import { useCreateLoginMutation } from '@/store/slices/loginAPI'
 import clsx from 'clsx'
+import Cookies from 'js-cookie'
 
 export default function LoginPage() {
   const navigate = useNavigate()
@@ -35,7 +36,13 @@ export default function LoginPage() {
 
   async function handleFormLogin(values) {
     try {
-      await createLogin({ data: values })
+      const res = await createLogin({ data: values })
+      if ('data' in res) {
+        const token = res?.data?.data?.token
+        Cookies.set('token', token)
+      } else {
+        console.error('Error occurred:', res.error)
+      }
     } catch (error) {
       console.log(error)
     }

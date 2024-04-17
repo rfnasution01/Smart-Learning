@@ -3,6 +3,10 @@ export type LoginType = {
   password: string
 }
 
+export type ResponseLoginType = {
+  token: string
+  change_password: boolean
+}
 export type ChangePasswordType = {
   old_password: string
   new_password: string
