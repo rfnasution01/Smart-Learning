@@ -44,7 +44,7 @@ export default function RegistrasiPage() {
     { nisn: nisn },
     { skip: nisn === '' || nisn === undefined },
   )
-  const disabled = isFetching || isLoading
+  const disabled = isFetching || isLoading || createAccountLoading
 
   const form = useForm<zod.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
@@ -289,7 +289,7 @@ export default function RegistrasiPage() {
                   variant="solid-primary"
                   type="submit"
                   classes="py-12"
-                  disabled={disabled || createAccountLoading}
+                  disabled={disabled}
                 >
                   <span
                     className={clsx('', {
