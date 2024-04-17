@@ -5,6 +5,7 @@ import {
   CBTPage,
   ChangePasswordPage,
   ComingSoon,
+  HomeCBTPage,
   Homepage,
   LoginLayout,
   LoginPage,
@@ -68,11 +69,11 @@ export const router = createBrowserRouter([
         children: [
           {
             path: '',
-            element: <ComingSoon />,
+            element: <HomeCBTPage />,
           },
           {
             path: 'home',
-            element: <ComingSoon />,
+            element: <HomeCBTPage />,
           },
           {
             path: 'account-setting',

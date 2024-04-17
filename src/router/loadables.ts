@@ -25,3 +25,4 @@ export const PengumuanPage = loadable(() => import('@/pages/pengumuman'))
 export const PostPage = loadable(() => import('@/pages/post'))
 
 export const CBTPage = loadable(() => import('@/pages/cbt'))
+export const HomeCBTPage = loadable(() => import('@/pages/cbt/home'))
