@@ -5,9 +5,7 @@ export default function CBT() {
   return (
     <div className="scrollbar flex max-h-screen min-h-screen flex-col overflow-auto bg-background">
       <CBTHeaderLayout />
-      <div className="flex-1">
-        <Outlet />
-      </div>
+      <Outlet />
     </div>
   )
 }

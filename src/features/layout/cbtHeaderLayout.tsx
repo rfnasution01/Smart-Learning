@@ -34,8 +34,8 @@ export function CBTHeaderLayout() {
       <div className="flex min-h-[7.6rem] items-center bg-primary-shade-500 px-32 font-roboto text-[2.4rem] uppercase tracking-1.5 text-white">
         <h3>Computer Based Test</h3>
       </div>
-      <div className="flex items-center justify-between px-32">
-        <div className="flex items-center gap-x-32">
+      <div className="flex items-center gap-x-32 px-32">
+        <div className="scrollbar flex w-10/12 items-center gap-x-32 overflow-x-auto phones:w-7/12">
           {[
             'Home',
             'Account Setting',
@@ -46,7 +46,7 @@ export function CBTHeaderLayout() {
           ].map((item, idx) => (
             <Link
               to={item.includes('Keluar') ? '/login' : convertToSlug(item)}
-              className={clsx('text-[2rem] phones:text-[2.4rem]', {
+              className={clsx('text-nowrap text-[2rem] phones:text-[2.4rem]', {
                 'text-primary-shade-500': isActivePage(item),
               })}
               onClick={() => {
@@ -60,7 +60,7 @@ export function CBTHeaderLayout() {
             </Link>
           ))}
         </div>
-        <div className="text-[2rem] phones:text-[2.4rem]">
+        <div className="flex w-2/12 items-center justify-end text-[2rem] phones:w-5/12 phones:text-[2.4rem]">
           Hello,{' '}
           <span className="font-bold">{biodata?.pribadi?.nama ?? 'John'}</span>{' '}
           !

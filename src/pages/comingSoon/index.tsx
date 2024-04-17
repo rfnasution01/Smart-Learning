@@ -1,6 +1,6 @@
 export default function ComingSoon() {
   return (
-    <div className="flex min-h-[100%] flex-col items-center justify-center gap-y-16">
+    <div className="flex flex-1 flex-col items-center justify-center gap-y-16">
       <h1 className="text-center text-[9rem] font-bold phones:text-[5rem]">
         Coming Soon !
       </h1>
