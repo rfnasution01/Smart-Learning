@@ -1,1 +1,1 @@
-export * from './beritaMapping'
+export * from './beritaHome'

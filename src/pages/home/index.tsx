@@ -1,4 +1,5 @@
 import { BeritaMapping } from '@/features/berita'
+import { PengumumanMapping } from '@/features/pengumuman'
 
 export default function Homepage() {
   return (
@@ -7,8 +8,8 @@ export default function Homepage() {
         <div className="col-span-9 phones:col-span-12">
           <BeritaMapping />
         </div>
-        <div className="col-span-3 bg-blue-300 phones:col-span-12">
-          Pengumuman
+        <div className="col-span-3 phones:col-span-12">
+          <PengumumanMapping />
         </div>
       </div>
     </div>

@@ -53,7 +53,7 @@ export function BeritaMapping() {
         />
       </div>
       <div className="grid grid-cols-12 gap-32 p-32">
-        {berita.length === 0 ? (
+        {berita?.length === 0 ? (
           <span className="col-span-12 text-[2rem]">
             Berita tidak ditemukan.
           </span>
