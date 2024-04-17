@@ -46,7 +46,7 @@ export default function ActivateAccountPage() {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success(`Akun sudah diverifikasi!`, {
+      toast.success(`Akun berhasil diverifikasi! Silahkan login`, {
         position: 'top-center',
         autoClose: 5000,
         hideProgressBar: false,
@@ -57,6 +57,9 @@ export default function ActivateAccountPage() {
         theme: 'light',
         transition: Bounce,
       })
+      setTimeout(() => {
+        navigate('/login')
+      }, 5000)
     }
   }, [isSuccess])
 
