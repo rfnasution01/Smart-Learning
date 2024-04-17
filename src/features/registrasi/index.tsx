@@ -165,9 +165,7 @@ export default function RegistrasiPage() {
   return (
     <div className="flex h-full flex-col items-center justify-center gap-y-32 bg-white phones:h-auto">
       <div className="flex w-full flex-col items-center p-32">
-        <span className="mb-64 font-roboto text-[3rem]">
-          Create an Account {nisn}
-        </span>
+        <span className="mb-64 font-roboto text-[3rem]">Create an Account</span>
         <Form {...form}>
           <form
             className="w-full"
