@@ -2,7 +2,7 @@ import { Form } from '@/components/Form'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
-import { Eye, EyeOff, Lock, Save } from 'lucide-react'
+import { Eye, EyeOff, Loader2, Lock, Save } from 'lucide-react'
 import { Button } from '@/components/Button'
 import { useEffect, useState } from 'react'
 import { FormLabelInput } from '@/components/ui/input'
@@ -11,12 +11,14 @@ import { Bounce, ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { changePasswordSchema } from '@/libs/const/schema/changePasswordSchema'
 import { useCreateNewPasswordMutation } from '@/store/slices/loginAPI'
+import clsx from 'clsx'
 
 export default function ChangePasswordPage() {
   const navigate = useNavigate()
   const [isShow, setIsShow] = useState<boolean>(false)
-  const [createNewPassword, { isSuccess, isError, error }] =
+  const [createNewPassword, { isSuccess, isError, error, isLoading }] =
     useCreateNewPasswordMutation()
+  const disabled = isLoading
 
   const form = useForm<zod.infer<typeof changePasswordSchema>>({
     resolver: zodResolver(changePasswordSchema),
@@ -93,6 +95,7 @@ export default function ChangePasswordPage() {
                   handlerClick={() => setIsShow(!isShow)}
                   type={!isShow ? 'password' : 'text'}
                   className="col-span-6 phones:col-span-12"
+                  isDisabled={disabled}
                 />
 
                 <FormLabelInput
@@ -105,11 +108,23 @@ export default function ChangePasswordPage() {
                   handlerClick={() => setIsShow(!isShow)}
                   type={!isShow ? 'password' : 'text'}
                   className="col-span-6 phones:col-span-12"
+                  isDisabled={disabled}
                 />
               </div>
 
-              <Button variant="solid-primary" type="submit" classes="py-12">
-                <Save size={12} />
+              <Button
+                variant="solid-primary"
+                type="submit"
+                classes="py-12"
+                disabled={disabled}
+              >
+                <span
+                  className={clsx('', {
+                    'animate-spin duration-100': disabled,
+                  })}
+                >
+                  {disabled ? <Loader2 size={12} /> : <Save size={12} />}
+                </span>
                 Simpan
               </Button>
 
