@@ -3,7 +3,7 @@ import { Res, api } from '../api'
 
 export const beritaEndpoints = api.injectEndpoints({
   endpoints: (builder) => ({
-    getBerita: builder.query<Res<BeritaType>, BeritaParams>({
+    getBerita: builder.query<Res<BeritaType[]>, BeritaParams>({
       query: ({ page_size, page_number, search }) => ({
         url: 'berita',
         params: {

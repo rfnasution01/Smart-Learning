@@ -5,23 +5,42 @@ import {
 } from '@/store/reducer/stateIdentitas'
 import { useGetIdentitasQuery } from '@/store/slices/identitasAPI'
 import { debounce } from 'lodash'
-import { Search } from 'lucide-react'
+import { Bell, ChevronDown, List, Search, Settings } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { ButtonGroup } from './buttonGroup'
 import { HeaderNavigation } from './headerNavigation'
+import { capitalizeFirstLetterFromLowercase } from '@/libs/helpers/formatText'
+import Cookies from 'js-cookie'
+import { useGetBiodataQuery } from '@/store/slices/biodataAPI'
+import { BiodataType } from '@/libs/interface/biodataType'
+import { DialogHelpers } from '@/components/ui/dialog'
+import { ButtonGroupMobile } from './buttonGroupMobile'
 
 export function HeaderLayout() {
+  const [isOpen, setIsOpen] = useState<boolean>(false)
   const [search, setSearch] = useState<string>('')
   const dispatch = useDispatch()
   const identitas = useSelector(getIdentitasSlice)
-  const { data } = useGetIdentitasQuery()
+  const { data: identitasData } = useGetIdentitasQuery()
+
+  const token = Cookies.get('token')
+  const { data: biodataData } = useGetBiodataQuery()
+  const [biodata, setBiodata] = useState<BiodataType>()
+
   useEffect(() => {
-    if (data?.data) {
-      dispatch(setStateIdentitas(data?.data))
+    if (biodataData?.data) {
+      setBiodata(biodataData?.data)
     }
-  }, [data?.data])
+  }, [biodataData?.data])
+
+  useEffect(() => {
+    if (identitasData?.data) {
+      dispatch(setStateIdentitas(identitasData?.data))
+    }
+  }, [identitasData?.data])
+
   const handleSearch = debounce((searchValue: string) => {
     setSearch(searchValue)
   }, 300)
@@ -33,7 +52,7 @@ export function HeaderLayout() {
   console.log(search)
 
   return (
-    <div className="flex h-[7.6rem] flex-row items-center  justify-between gap-x-96 bg-primary-shade-500 px-32 text-white">
+    <div className="flex min-h-[7.6rem] flex-row items-center  justify-between gap-x-96 bg-primary-shade-500 px-32 text-white">
       <Link
         to="/"
         className="flex items-center gap-x-8 text-[3.2rem] text-primary-shade-200"
@@ -57,7 +76,7 @@ export function HeaderLayout() {
           <ButtonGroup />
         </div>
       </div>
-      {/* <div className="hidden phones:block" onClick={() => setIsOpen(true)}>
+      <div className="hidden phones:block">
         <div className="flex flex-row items-center gap-x-32">
           {token && (
             <div className="flex items-center gap-x-32">
@@ -75,7 +94,9 @@ export function HeaderLayout() {
                   className="rounded-full"
                 />
                 <span className="text-[2rem]">
-                  {capitalizeFirstLetterFromLowercase(username ?? '')}
+                  {capitalizeFirstLetterFromLowercase(
+                    biodata?.pribadi?.nama ?? '',
+                  )}
                 </span>
                 <span>
                   <ChevronDown size={16} />
@@ -83,9 +104,27 @@ export function HeaderLayout() {
               </div>
             </div>
           )}
-          <List size={24} color="#fff" />
+          <span onClick={() => setIsOpen(true)}>
+            <List size={24} color="#fff" />
+          </span>
         </div>
-      </div> */}
+      </div>
+      <DialogHelpers
+        title={
+          <h3 className="flex h-[7.6rem] items-center bg-primary-shade-500 px-24 text-[3.2rem] text-primary-shade-200">
+            {identitas?.nama_aplikasi}
+          </h3>
+        }
+        open={isOpen}
+        setOpen={setIsOpen}
+        noPadding
+        customComponent={
+          <div className="flex flex-col items-center gap-y-32">
+            <HeaderNavigation close={() => setIsOpen(false)} />
+            <ButtonGroupMobile />
+          </div>
+        }
+      />
     </div>
   )
 }

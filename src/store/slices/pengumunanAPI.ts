@@ -3,7 +3,7 @@ import { Res, api } from '../api'
 
 export const pengumumanEndpoints = api.injectEndpoints({
   endpoints: (builder) => ({
-    getPengumuman: builder.query<Res<BeritaType>, BeritaParams>({
+    getPengumuman: builder.query<Res<BeritaType[]>, BeritaParams>({
       query: ({ page_size, page_number, search }) => ({
         url: 'pengumuman',
         params: {
