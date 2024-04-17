@@ -1,11 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom'
 import {
   ActivateAccountPage,
+  BeritaPage,
   ChangePasswordPage,
   Homepage,
   LoginLayout,
   LoginPage,
   NotFound,
+  PengumuanPage,
   RegistrasiPage,
   RootLayout,
 } from './loadables'
@@ -44,6 +46,14 @@ export const router = createBrowserRouter([
             element: <ActivateAccountPage />,
           },
         ],
+      },
+      {
+        path: 'berita',
+        element: <BeritaPage />,
+      },
+      {
+        path: 'pengumuman',
+        element: <PengumuanPage />,
       },
     ],
   },

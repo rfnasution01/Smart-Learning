@@ -49,6 +49,17 @@ const variant = {
     'disabled:text-black',
     'border',
   ],
+  'outlined-white': [
+    'bg-transparent',
+    'border-white',
+    'text-whiite',
+    'hover:bg-slate-300',
+    'hover:border-button-outline-hover-border',
+    'hover:text-black',
+    'disabled:text-black',
+    'border',
+    'rounded-md',
+  ],
 }
 
 export type ButtonVariants = keyof typeof variant

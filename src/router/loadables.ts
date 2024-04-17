@@ -19,3 +19,6 @@ export const ChangePasswordPage = loadable(
 export const ActivateAccountPage = loadable(
   () => import('@/features/activateAccount'),
 )
+
+export const BeritaPage = loadable(() => import('@/pages/berita'))
+export const PengumuanPage = loadable(() => import('@/pages/pengumuman'))
