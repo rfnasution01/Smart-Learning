@@ -2,7 +2,9 @@ import { createBrowserRouter } from 'react-router-dom'
 import {
   ActivateAccountPage,
   BeritaPage,
+  CBTPage,
   ChangePasswordPage,
+  ComingSoon,
   Homepage,
   LoginLayout,
   LoginPage,
@@ -59,6 +61,36 @@ export const router = createBrowserRouter([
       {
         path: 'post',
         element: <PostPage />,
+      },
+      {
+        path: 'cbt',
+        element: <CBTPage />,
+        children: [
+          {
+            path: '',
+            element: <ComingSoon />,
+          },
+          {
+            path: 'home',
+            element: <ComingSoon />,
+          },
+          {
+            path: 'account-setting',
+            element: <ComingSoon />,
+          },
+          {
+            path: 'pengumuman',
+            element: <ComingSoon />,
+          },
+          {
+            path: 'percobaan',
+            element: <ComingSoon />,
+          },
+          {
+            path: 'ujian',
+            element: <ComingSoon />,
+          },
+        ],
       },
     ],
   },

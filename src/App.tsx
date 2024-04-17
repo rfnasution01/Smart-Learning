@@ -6,7 +6,9 @@ export default function RootLayout() {
   const { firstPathname } = usePathname()
   return (
     <div className="scrollbar flex max-h-screen min-h-screen flex-col overflow-auto bg-background">
-      {!firstPathname.includes('login') && <HeaderLayout />}
+      {!firstPathname.includes('login') && !firstPathname.includes('cbt') && (
+        <HeaderLayout />
+      )}
       <Outlet />
     </div>
   )

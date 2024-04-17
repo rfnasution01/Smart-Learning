@@ -62,7 +62,7 @@ export default function LoginPage() {
         transition: Bounce,
       })
       setTimeout(() => {
-        navigate('/')
+        navigate('/cbt')
       }, 3000)
     }
   }, [isSuccess])
