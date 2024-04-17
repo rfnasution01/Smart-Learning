@@ -53,7 +53,7 @@ export function BeritaList({
 
                   <div className="flex items-center justify-between">
                     <Link
-                      to={`/berita?news=${item?.seo}`}
+                      to={`/post?news=${item?.seo}`}
                       className="text-primary-shade-500 hover:cursor-pointer hover:text-primary-shade-700"
                     >
                       Baca Selengkapnya

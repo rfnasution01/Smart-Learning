@@ -1,3 +1,5 @@
 export * from './beritaHome'
 export * from './beritaKategori'
 export * from './beritaList'
+export * from './beritaDetail'
+export * from './beritaRelated'

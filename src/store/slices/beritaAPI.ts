@@ -24,7 +24,7 @@ export const beritaEndpoints = api.injectEndpoints({
         },
       }),
     }),
-    getBeritaDetail: builder.query<Res<BeritaType>, BeritaDetailParams>({
+    getBeritaDetail: builder.query<Res<BeritaType[]>, BeritaDetailParams>({
       query: ({ seo }) => ({
         url: 'berita/detail',
         params: {
@@ -38,5 +38,5 @@ export const beritaEndpoints = api.injectEndpoints({
 export const {
   useGetBeritaQuery,
   useGetBeritaKategoriQuery,
-  useLazyGetBeritaDetailQuery,
+  useGetBeritaDetailQuery,
 } = beritaEndpoints

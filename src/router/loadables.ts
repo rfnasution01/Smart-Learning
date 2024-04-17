@@ -22,3 +22,4 @@ export const ActivateAccountPage = loadable(
 
 export const BeritaPage = loadable(() => import('@/pages/berita'))
 export const PengumuanPage = loadable(() => import('@/pages/pengumuman'))
+export const PostPage = loadable(() => import('@/pages/post'))

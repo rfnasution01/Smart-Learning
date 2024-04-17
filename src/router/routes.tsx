@@ -8,6 +8,7 @@ import {
   LoginPage,
   NotFound,
   PengumuanPage,
+  PostPage,
   RegistrasiPage,
   RootLayout,
 } from './loadables'
@@ -54,6 +55,10 @@ export const router = createBrowserRouter([
       {
         path: 'pengumuman',
         element: <PengumuanPage />,
+      },
+      {
+        path: 'post',
+        element: <PostPage />,
       },
     ],
   },
