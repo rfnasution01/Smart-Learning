@@ -1,14 +1,14 @@
 import { CardTitle } from '@/components/CardTitle'
 import { useSearch } from '@/libs/hooks/useSearch'
-import { BeritaType } from '@/libs/interface'
+import { BeritaDetailType } from '@/libs/interface'
 
-import { BeritaList } from './beritaList'
+import { BeritaPost } from './beritaPost'
 
 export function BeritaDetail({
   data,
   title,
 }: {
-  data: BeritaType[]
+  data: BeritaDetailType[]
   title: string
 }) {
   const { currentPage } = useSearch()
@@ -19,7 +19,7 @@ export function BeritaDetail({
       <CardTitle title={title} classes="w-4/12 phones:w-6/12" />
 
       <div className="grid grid-cols-12 gap-32 p-32">
-        <BeritaList data={data} pageSize={pageSize} currentPage={currentPage} />
+        <BeritaPost data={data} pageSize={pageSize} currentPage={currentPage} />
       </div>
     </div>
   )

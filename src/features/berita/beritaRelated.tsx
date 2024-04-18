@@ -1,14 +1,14 @@
 import { Badge } from '@/components/Badge'
 import { CardTitle } from '@/components/CardTitle'
 import TimeSinceUploaded from '@/libs/helpers/timeUploaded'
-import { BeritaType } from '@/libs/interface'
+import { BeritaDetailType } from '@/libs/interface'
 import { Eye, Timer } from 'lucide-react'
 
 export function BeritaRelated({
   data,
   title,
 }: {
-  data: BeritaType[]
+  data: BeritaDetailType[]
   title: string
 }) {
   return (
@@ -26,16 +26,12 @@ export function BeritaRelated({
               className="flex transform items-center gap-x-16 p-16 shadow-md transition-transform duration-300 hover:scale-105 hover:cursor-pointer"
               key={idx}
             >
-              <img
-                src={item?.photo?.gambar}
-                alt={item?.photo?.keterangan}
-                className="h-[5rem] w-[5rem] rounded-full"
-              />
               <div className="flex flex-1 flex-col gap-y-8">
-                <span className="text-[2rem] font-bold">{item?.judul}</span>
                 <Badge variant="general">
                   <span className="text-[1rem]">{item?.kategori}</span>
                 </Badge>
+                <span className="text-[2rem] font-bold">{item?.judul}</span>
+
                 <div className="flex items-center justify-between ">
                   <div className="flex items-center gap-x-2 ">
                     <span>

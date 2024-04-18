@@ -1,6 +1,6 @@
 import { BeritaDetail, BeritaMapping, BeritaRelated } from '@/features/berita'
 import { convertSlugToText } from '@/libs/helpers/formatText'
-import { BeritaType } from '@/libs/interface'
+import { BeritaDetailType } from '@/libs/interface'
 import { useGetBeritaDetailQuery } from '@/store/slices/beritaAPI'
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
@@ -10,8 +10,8 @@ export default function Post() {
   const searchParams = new URLSearchParams(location.search)
   const newsParam = searchParams.get('news')
   const { data } = useGetBeritaDetailQuery({ seo: newsParam })
-  const [detailBerita, setDetailBerita] = useState<BeritaType[]>()
-  const [realtedBerita, setRelatedBerita] = useState<BeritaType[]>()
+  const [detailBerita, setDetailBerita] = useState<BeritaDetailType[]>()
+  const [realtedBerita, setRelatedBerita] = useState<BeritaDetailType[]>()
 
   useEffect(() => {
     if (data?.data) {
