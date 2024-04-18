@@ -70,9 +70,10 @@ export const router = createBrowserRouter([
         element: <CBTPage />,
         loader: async () => {
           const jwtPayload = Cookies.get('token')
+          const loginPage = import.meta.env.VITE_BASE_LOGIN
 
           if (!jwtPayload) {
-            window.location.href = `/login`
+            window.location.href = `${loginPage}`
             Cookies.remove('token')
             return null
           }
