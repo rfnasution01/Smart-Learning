@@ -13,15 +13,28 @@ export function BeritaPost({
   currentPage: number
   pageSize: number
 }) {
-  const [id, setId] = useState<number>(0)
+  const initialId = 0
+  const [id, setId] = useState<number>(initialId)
+  const [firstMount, setFirstMount] = useState<boolean>(true)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setId((prevId) => (prevId + 1) % data?.length) // Ganti angka 3 sesuai dengan jumlah id yang ada
+      if (firstMount) {
+        setId(initialId)
+        setFirstMount(false)
+      } else {
+        const isIdNotMax = id < data?.length - 1
+        const nextId = id + 1
+        if (isIdNotMax) {
+          setId(nextId)
+        } else {
+          setId(initialId)
+        }
+      }
     }, 3000) // Waktu dalam milidetik (3 detik)
 
     return () => clearInterval(interval)
-  }, [])
+  }, [firstMount, id])
 
   return (
     <>
